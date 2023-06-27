@@ -5,3 +5,5 @@ pygame/Scripts
 pygame/pyvenv.cfg
 pygame/src/__pycache__/player.cpython-311.pyc
 pygame/src/__pycache__/world.cpython-311.pyc
+pygame/src/__pycache__/ground.cpython-311.pyc
+pygame/src/__pycache__/object.cpython-311.pyc
