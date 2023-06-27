@@ -3,3 +3,5 @@ pygame/Include
 pygame/Lib
 pygame/Scripts
 pygame/pyvenv.cfg
+pygame/src/__pycache__/player.cpython-311.pyc
+pygame/src/__pycache__/world.cpython-311.pyc
