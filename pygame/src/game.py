@@ -16,12 +16,49 @@ world_ = world.World(1024, 800, 0, 0)
 player_ = player.Player(210, 210, 40, 100, world_)
 platform_ = ground.Platform(200, 610, 30, 30)
 
+# platform_group = pygame.sprite.Group()
+# for p in range(world_.get_max_platforms()):
+#     p_x = random.randint(0, world_.width-30)
+#     p_y = random.randint(60, 90)*random.randint(1, 10)
+#     platform = ground.Platform(p_x, p_y, 30, 30)
+#     platform_group.add(platform)
+# world_.set_platforms(platform_group)
+
+stepper = {
+    "wallCount": 400,
+    "padding": 2,
+    'x': int(world_.width//30/2),
+    'y': int(world_.height//30/2),
+}
+def levelRow():
+    return ["#"]* int(world_.width/30)
+
+level = [levelRow() for _ in range(world_.height//30)]
+
+while stepper['wallCount'] >= 0:
+    x = stepper['x']
+    y = stepper['y']
+
+    if level[y][x] == "#":
+        level[y][x] = " "
+        stepper['wallCount'] -= 1
+    roll = random.randint(1, 4)
+
+    if roll == 1 and x > stepper['padding']:
+        stepper['x'] -= 1
+    if roll == 2 and x < world_.width//30- 1 - stepper['padding']:
+        stepper['x'] += 1
+    if roll == 3 and y > stepper['padding']:
+        stepper['y'] -= 1
+    if roll == 4 and y < world_.height//30 - 1 - stepper['padding']:
+        stepper['y'] += 1
+
 platform_group = pygame.sprite.Group()
-for p in range(world_.get_max_platforms()):
-    p_x = random.randint(0, world_.width-30)
-    p_y = random.randint(60, 90)*random.randint(1, 10)
-    platform = ground.Platform(p_x, p_y, 30, 30)
-    platform_group.add(platform)
+for row in level:
+    for wall in row:
+        if wall == "#":
+            platform = ground.Platform(row.index(wall)*30, level.index(row)*30, 30, 30)
+            platform_group.add(platform) 
 world_.set_platforms(platform_group)
 
 screen = pygame.display.set_mode((world_.width, world_.height))
