@@ -18,7 +18,7 @@ platform_ = ground.Platform(200, 610, 30, 30)
 
 platform_group = pygame.sprite.Group()
 for p in range(world_.get_max_platforms()):
-    p_x = random.randint(0, world_.width-130)
+    p_x = random.randint(0, world_.width-30)
     p_y = random.randint(60, 90)*random.randint(1, 10)
     platform = ground.Platform(p_x, p_y, 30, 30)
     platform_group.add(platform)
@@ -34,10 +34,11 @@ while running:
         player_.move_right()
     if key[pygame.K_LEFT] or key[pygame.K_a]:
         player_.move_left()
-    
+    if key[pygame.K_DOWN] or key[pygame.K_s]:
+        player_.get_down()
     world_.draw_object(screen)
-    player_.draw_player(screen)
     world_.get_platforms().draw(screen)
+    player_.draw_player(screen)
     # platform_.draw_object(screen)
     # platform_group.draw(screen)
     for event in pygame.event.get():

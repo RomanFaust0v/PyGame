@@ -33,7 +33,10 @@ class Player(Object):
         if self.is_standing: 
             self.y_speed = -20
             self.is_standing = False
-
+    def get_down(self):
+        if self.is_standing and self.rect.bottom < self.world.height:
+            self.rect.y += 4
+            self.is_standing = False
     def fall(self):
         self.y_speed += self.world.gravity
         delta_y = self.y_speed
