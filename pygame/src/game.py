@@ -1,7 +1,7 @@
-import player
-import world
+import src.player as player
+import src.world as world
 import pygame
-import ground
+import src.ground as ground
 import random
 
 WHITE = (255, 255, 255)
@@ -14,14 +14,15 @@ pygame.display.set_caption("Roman's Game")
 #create game world
 world_ = world.World(1024, 800, 0, 0)
 player_ = player.Player(210, 210, 40, 100, world_)
-platform_ = ground.Platform(500, 500, 30, 30)
+platform_ = ground.Platform(200, 610, 30, 30)
 
 platform_group = pygame.sprite.Group()
 for p in range(world_.get_max_platforms()):
     p_x = random.randint(0, world_.width-130)
-    p_y = random.randint(30, 60)*p
-    platform = ground.Platform(p_x, p_y, 130, 30)
+    p_y = random.randint(60, 90)*random.randint(1, 10)
+    platform = ground.Platform(p_x, p_y, 30, 30)
     platform_group.add(platform)
+world_.set_platforms(platform_group)
 
 screen = pygame.display.set_mode((world_.width, world_.height))
 
@@ -36,8 +37,9 @@ while running:
     
     world_.draw_object(screen)
     player_.draw_player(screen)
+    world_.get_platforms().draw(screen)
     # platform_.draw_object(screen)
-    platform_group.draw(screen)
+    # platform_group.draw(screen)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False

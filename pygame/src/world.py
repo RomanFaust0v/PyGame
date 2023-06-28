@@ -1,11 +1,12 @@
-from object import Object
+from .object import Object
 
 class World(Object):
     bckgr_img = "assets/background.png"
     def __init__(self, width, height, x, y):
         super().__init__(x, y, width, height, self.bckgr_img)
-        self.gravity = 1.2
-        self.max_platforms = 10
+        self.gravity = 1
+        self.max_platforms = 30
+        self.platforms = None
     
     def set_background(self, background):
         self.image = background
@@ -24,4 +25,9 @@ class World(Object):
     
     def set_gravity(self, gravity):
         self.gravity = gravity
-            
+    
+    def set_platforms(self, platforms):
+        self.platforms = platforms
+    
+    def get_platforms(self):
+        return self.platforms

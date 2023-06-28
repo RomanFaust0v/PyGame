@@ -1,5 +1,5 @@
 from pygame import draw, Surface, Rect, transform
-from object import Object
+from .object import Object
 class Player(Object):
     img_file = "assets/Player.png"
     def __init__(self, x, y, width, height, world):
@@ -37,14 +37,23 @@ class Player(Object):
     def fall(self):
         self.y_speed += self.world.gravity
         delta_y = self.y_speed
-
         if self.rect.bottom + delta_y > self.world.height:
             delta_y = self.world.height - self.rect.bottom
             self.is_standing = True
         if self.rect.top + delta_y < 0:
             delta_y = -self.rect.top
             self.y_speed = 0
+        for platform in self.world.get_platforms():
+            if platform.rect.colliderect(self.rect.x, self.rect.y + delta_y, self.rect.width, self.rect.height):
+                if self.rect.bottom <= platform.rect.top and self.rect.bottom + delta_y >= platform.rect.top:
+                    delta_y = platform.rect.top - self.rect.bottom
+                    self.is_standing = True
+                    self.y_speed = 0
+                # delta_y = platform.rect.top - self.rect.bottom
+                # self.is_standing = True
+                # self.y_speed = 0
         self.rect.y += delta_y
+        
     # def player_move(self, key)
     
     def set_rect(self, rect):
