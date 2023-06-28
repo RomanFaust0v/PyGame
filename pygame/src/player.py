@@ -1,17 +1,19 @@
-class Player:
+from pygame import draw, Surface, Rect, transform
+from .object import Object
+class Player(Object):
     img_file = "assets/Player.png"
     def __init__(self, x, y, width, height, world):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.x_speed = 0
-        self.y_speed = 0
+        super().__init__(x, y, width, height, self.img_file)
         self.world = world
-        self.rect = None
-        self.image = None
         self.flip = False
         self.is_standing = False
+        self.y_speed = 0
+        self.x_speed = 0
+        self.rect = Rect(0, 0, 35, 80)
+
+    def draw_player(self, screen: Surface):
+        screen.blit(transform.flip(self.image, self.flip, False), (self.get_rect().x, self.get_rect().y-15))
+        draw.rect(screen, (255, 255, 255), self.rect, 2)
     
     def move_right(self):
         delta_x = 10
@@ -35,14 +37,23 @@ class Player:
     def fall(self):
         self.y_speed += self.world.gravity
         delta_y = self.y_speed
-
         if self.rect.bottom + delta_y > self.world.height:
             delta_y = self.world.height - self.rect.bottom
             self.is_standing = True
         if self.rect.top + delta_y < 0:
             delta_y = -self.rect.top
             self.y_speed = 0
+        for platform in self.world.get_platforms():
+            if platform.rect.colliderect(self.rect.x, self.rect.y + delta_y, self.rect.width, self.rect.height):
+                if self.rect.bottom <= platform.rect.top and self.rect.bottom + delta_y >= platform.rect.top:
+                    delta_y = platform.rect.top - self.rect.bottom
+                    self.is_standing = True
+                    self.y_speed = 0
+                # delta_y = platform.rect.top - self.rect.bottom
+                # self.is_standing = True
+                # self.y_speed = 0
         self.rect.y += delta_y
+        
     # def player_move(self, key)
     
     def set_rect(self, rect):
