@@ -1,5 +1,5 @@
 from pygame.sprite import Group, Sprite
-from .object import Object
+from baseObject import Object
 import random
 class Platform(Sprite, Object):
     # plat_img_1 = "assets/Terrain1.png"
