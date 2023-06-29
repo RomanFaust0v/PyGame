@@ -2,7 +2,7 @@ import player as player
 import world as world
 import pygame
 import ground as ground
-from worldGenerator import generateLevel
+from worldGenerator import initLevel
 
 running = True
 clock = pygame.time.Clock()
@@ -29,7 +29,7 @@ def init_all():
     global world_, player_
     world_ = world.World(WORLD_WIDTH, WORLD_HEIGHT, 0, 0)
     player_ = player.Player(WORLD_WIDTH//2, WORLD_HEIGHT//2, PLATFORM_WIDTH, PLAYER_HEIGHT, world_)
-    platform_group, level = generateLevel(WORLD_HEIGHT, WORLD_WIDTH, PLATFORM_HEIGHT, PLATFORM_WIDTH)
+    platform_group, level = initLevel()
     world_.set_platforms(platform_group)
     world_.set_level(level)
 
@@ -38,8 +38,9 @@ init_all()
 #GAME PROCESS
 while running:
     clock.tick(FPS)
-    player_.fall()
-    
+    if player_.get_x_speed() != 0 or not player_.is_standing:
+        player_.fall()
+    # player_.fall()    
     key = pygame.key.get_pressed()
     if key[pygame.K_RIGHT] or key[pygame.K_d]:
         player_.move_right()

@@ -10,7 +10,7 @@ class Player(Object):
         self.can_fall = True
         self.y_speed = 0
         self.x_speed = 0
-        self.rect = Rect(self.x, self.y, 40, 60)
+        self.rect = Rect(self.x, self.y, 38, 60)
         self.standing_on = None
 
     def draw_player(self, screen: Surface):
@@ -121,3 +121,6 @@ class Player(Object):
     
     def set_x_speed(self, x_speed):
         self.x_speed = x_speed
+    
+    def get_x_speed(self):
+        return self.x_speed
