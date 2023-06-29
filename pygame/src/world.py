@@ -1,4 +1,4 @@
-from .object import Object
+from baseObject import Object
 
 class World(Object):
     bckgr_img = "assets/background.png"
@@ -7,6 +7,7 @@ class World(Object):
         self.gravity = 1
         self.max_platforms = 30
         self.platforms = None
+        self.level = None
     
     def set_background(self, background):
         self.image = background
@@ -31,3 +32,6 @@ class World(Object):
     
     def get_platforms(self):
         return self.platforms
+    
+    def set_level(self, level):
+        self.level = level

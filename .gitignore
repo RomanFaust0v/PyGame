@@ -7,3 +7,5 @@ pygame/src/__pycache__/player.cpython-311.pyc
 pygame/src/__pycache__/world.cpython-311.pyc
 pygame/src/__pycache__/ground.cpython-311.pyc
 pygame/src/__pycache__/object.cpython-311.pyc
+pygame/src/__pycache__/baseObject.cpython-311.pyc
+pygame/src/__pycache__/worldGenerator.cpython-311.pyc
