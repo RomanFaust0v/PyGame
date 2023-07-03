@@ -8,6 +8,8 @@ To run this:
 There is no too much to see. Level generate automaticaly and player can move left/right on the bloks with a/s or left/right arrow.
 You can jump with space bar
 Drop from the platform with "s" key but only if there is enough space under you.
+'R' - Generate new level.
+'Esc' - closes the game.
 
 TODO:
 Want to add enemies, collectible items, ataacks, power-ups, destructebla blocks, animation of movement
