@@ -1,3 +1,4 @@
+# World object class
 from baseObject import Object
 
 class World(Object):
@@ -9,6 +10,7 @@ class World(Object):
         self.platforms = None
         self.level = None
     
+    # Setters and getters for world object
     def set_background(self, background):
         self.image = background
     
