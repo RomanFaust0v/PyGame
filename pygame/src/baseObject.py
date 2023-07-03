@@ -1,3 +1,4 @@
+# This is the base object class. It is used to create all the objects in the game.
 from pygame import image, transform, Rect, display, Surface, draw
 class Object():
     

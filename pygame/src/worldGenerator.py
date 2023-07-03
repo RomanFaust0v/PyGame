@@ -1,3 +1,10 @@
+# Random level generator algorithm:
+
+# 1. Generate level full of walls
+# 2. Run stepper on the level. Stepper move randomly on the level and remove walls based on 'removeBlocks' variable.
+# 3. Algorithm will create 'amountOfLevels' levels and choose the best one. The best one is the level with the longest path of the stepper.
+# 4. The best level will be drawn on the screen.
+
 import random
 from ground import Platform
 from pygame import sprite
@@ -9,6 +16,7 @@ WORLD_WIDTH = 1024
 PLATFORM_HEIGHT = 40
 PLATFORM_WIDTH = 40
 
+# This function will generate a level with 'stepper' algorithm.
 def generateLevel():
     stepper = {
         "wallCount": removeBlocks,
@@ -52,7 +60,8 @@ def getNextMoves(x, y):
         'up':  [x, y-1],
         'down':  [x, y+1]
     }.values()
- 
+
+# This function will return the shortest path between 'stepper' start position and 'finish'. 
 def getShortestPath(level, startCoordinate, endCoordinate):
     searchPaths = [[startCoordinate]]
     visitedCoordinates = [startCoordinate]
@@ -86,8 +95,11 @@ def getShortestPath(level, startCoordinate, endCoordinate):
     
     return []
 
+# This function will generate 'amount' levels.
 def generateLevels(amount):
     return [generateLevel() for _ in range(amount)]
+
+# This function will evaluate levels
 
 def evaluateLevels(levels):
     evaluationScores = []
@@ -104,7 +116,9 @@ def evaluateLevels(levels):
         )
     
     return evaluationScores
- 
+
+# This function will generate all the levels, evalueta them and retur the best level.
+# The best level is the level with the longest path of the stepper.
 def generateBestLevel(amountOfLevels):
     levels = generateLevels(amountOfLevels)
     
@@ -116,6 +130,7 @@ def generateBestLevel(amountOfLevels):
     score, bestLevel = evaluationScores.pop(0)
     
     return bestLevel
+
 
 def initLevel():
     bestLevel = generateBestLevel(amountOfLevels)

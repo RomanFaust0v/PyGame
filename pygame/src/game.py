@@ -1,3 +1,4 @@
+# This file contains the main game loop and the initialization of the game objects.
 import player as player
 import world as world
 import pygame
